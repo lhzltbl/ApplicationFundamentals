@@ -9,10 +9,13 @@ namespace ApplicationFundamentals
 {
     public partial class App : Application
     {
-        private const string TestUrl = "https://www.exampleqwertyuioplkjhgfdsa.com";
-        public App()
+        private const string TestUrl = "https://www.google.com";
+
+        private readonly IServiceProvider _serviceProvider;
+        public App(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _serviceProvider = serviceProvider;
 
             if (DeviceInfo.Platform == DevicePlatform.WinUI)
             {
@@ -34,7 +37,9 @@ namespace ApplicationFundamentals
 
             if(current == NetworkAccess.Internet && isWebsiteReachable)
             {
-                MainPage = new StartPage();
+                //MainPage = new StartPage();
+                MainPage = _serviceProvider.GetRequiredService<StartPage>();
+
                 Debug.WriteLine("Application Started");
             }
             else

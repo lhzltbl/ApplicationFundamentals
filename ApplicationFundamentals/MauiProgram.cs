@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using ApplicationFundamentals.View;
+using ApplicationFundamentals.Services;
 
 namespace ApplicationFundamentals
 {
@@ -15,7 +17,10 @@ namespace ApplicationFundamentals
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
+#if DEBUG   //Service
+            builder.Services.AddSingleton<IMyService, MyService>();
+            //Content Page
+            builder.Services.AddTransient<StartPage>();
     		builder.Logging.AddDebug();
 #endif
 
